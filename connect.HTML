@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WA Log - Connect WhatsApp</title>
+  <meta charset="utf-8">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1777460370266787',  // Your WA Log App ID
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v18.0'
+      });
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function launchWhatsAppSignup() {
+      FB.login(function(response) {
+        if (response.authResponse) {
+          console.log('Success:', response);
+          document.getElementById('status').innerHTML = 
+            '<p style="color:green;font-weight:bold;">Connected successfully! Check console for details.</p>';
+        } else {
+          console.log('User cancelled or error:', response);
+          document.getElementById('status').innerHTML = 
+            '<p style="color:red;">Connection failed or cancelled.</p>';
+        }
+      }, {
+        config_id: '2170519153807231',  // Replace this
+        response_type: 'code',
+        override_default_response_type: true
+      });
+    }
+  </script>
+</head>
+<body style="font-family:Arial;padding:40px;text-align:center;">
+  <h1>WA Log</h1>
+  <p>Connect your WhatsApp Business Account to automatically capture leads.</p>
+  <button onclick="launchWhatsAppSignup()" 
+          style="padding:15px 30px;font-size:16px;background:#25D366;color:white;border:none;border-radius:5px;cursor:pointer;">
+    Connect WhatsApp
+  </button>
+  <div id="status" style="margin-top:20px;"></div>
+</body>
+</html>
